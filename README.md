@@ -36,7 +36,6 @@ labels.x <- cbind(y, X)
 labels.mean_and_std <- cbind(y, mean_and_std)
 
 ##    QUESTION 5:  From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-#    for each activity and each subject. 
 test.subject <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/subject_test.txt", col.names = c('subject'))
 train.subject <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/subject_train.txt", col.names = c('subject'))
 subject <- rbind(test.subject, train.subject)
