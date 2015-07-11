@@ -2177,6 +2177,9 @@ Summary of dataset
  3rd Qu.: 0.03200                     3rd Qu.:-0.5823      3rd Qu.: 0.24343     3rd Qu.: 0.106190   
  Max.   : 0.18238                     Max.   : 0.7378      Max.   : 0.42476     Max.   : 0.390444 
 
+Transformation
+------------
+All the values contains means, aggregated over 30 subjects and 6 activities, the size of dataset is 180 rows by 563 columns.
 
 Save to file
 ------------
