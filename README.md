@@ -4,61 +4,45 @@ The purpose of this project is to demonstrate your ability to collect, work with
 
 One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
 
+##Read Dataset Online
+dataFile <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(dataFile, "C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip", method="auto")
+unzip("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip")
+
 ##    QUESTION 1:  Merges the training and the test sets to create one data set.
-###Read Features
-Features<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/features.txt",header=FALSE,sep="")
+features <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/features.txt")
+test.x <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/X_test.txt", col.names=features[,2])
+train.x <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/X_train.txt", col.names=features[,2])
+X <- rbind(test.x, train.x)
 
-###Read Train_XY
-Train_X<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/x_train.txt",header=FALSE,col.names=Feature[,2],sep="")
-Train_Y<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/y_train.txt",header=FALSE,col.names="Activity",sep="")
-Subject_Train<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/subject_train.txt",header=FALSE,col.names="Subject",sep="")
-
-###Read Test_XY
-Test_X<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/x_test.txt",header=FALSE,col.names=Feature[,2],sep="")
-Test_Y<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/y_test.txt",header=FALSE,col.names="Activity",sep="")
-Subject_Test<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/subject_test.txt",header=FALSE,col.names="Subject",sep="")
-
-###Combine Train_Merge + Test_Merge
-Train_Merge<-cbind(Train_X,Train_Y,Subject_Train)
-Test_Merge<-cbind(Test_X,Test_Y,Subject_Test)
-Test_Train_Merge<-rbind(Train_Merge,Test_Merge)
-head(Test_Train_Merge,2)
-
-##    QUESTION 2:  Extracts only the measurements on the mean and standard deviation for each measurement.
-All_features <- Features[grep("(mean|std)\\(", Features[,2]),]
-Mean_and_std <- Test_Train_Merge[,all_features[,1]]
-head(Mean_and_std,2)
+##    QUESTION 2:  Extracts only the measurements on the mean and standard deviation for each measurement. 
+features <- features[grep("(mean|std)\\(", features[,2]),]
+mean_and_std <- X[,features[,1]]
 
 ##    QUESTION 3:  Uses descriptive activity names to name the activities in the data set
+test.y <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/y_test.txt", col.names = c('activity'))
+train.y <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/y_train.txt", col.names = c('activity'))
+y <- rbind(test.y, train.y)
 
-Test_Y<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/y_test.txt",header=FALSE,col.names="Activity",sep="")
-Train_Y<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/y_train.txt",header=FALSE,col.names="Activity",sep="")
-Test_Train_Y <- rbind(Test_Y, Train_Y)
-
-Labels <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/activity_labels.txt")
-for (i in 1:nrow(Labels)) {
-        code <- as.numeric(Labels[i, 1])
-        name <- as.character(Labels[i, 2])
-        Test_Train_Y[Test_Train_Y$activity == code, ] <- name
+labels <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/activity_labels.txt")
+for (i in 1:nrow(labels)) {
+        code <- as.numeric(labels[i, 1])
+        name <- as.character(labels[i, 2])
+        y[y$activity == code, ] <- name
 }
 
+##    QUESTION 4:  Appropriately labels the data set with descriptive variable names. 
+labels.x <- cbind(y, X)
+labels.mean_and_std <- cbind(y, mean_and_std)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##    QUESTION 5:  From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+#    for each activity and each subject. 
+test.subject <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/test/subject_test.txt", col.names = c('subject'))
+train.subject <- read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI HAR Dataset/train/subject_train.txt", col.names = c('subject'))
+subject <- rbind(test.subject, train.subject)
+averages <- aggregate(X, by = list(activity = y[,1], subject = subject[,1]), mean)
+file.remove("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/result.txt")
+write.csv(averages, file="C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/result.txt", row.names=FALSE)
 
 
 
