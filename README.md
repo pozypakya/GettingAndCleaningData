@@ -5,8 +5,9 @@ The purpose of this project is to demonstrate your ability to collect, work with
 One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
 
 ##Read Dataset Online
-dataFile <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(dataFile, "C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip", method="auto")
+onlineFile <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(onlineFile, "C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip", method="auto")
+setwd("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data");
 unzip("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip")
 
 ##    QUESTION 1:  Merges the training and the test sets to create one data set.

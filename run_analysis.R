@@ -1,5 +1,7 @@
-dataFile <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(dataFile, "C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip", method="auto")
+##Read Dataset Online
+onlineFile <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(onlineFile, "C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip", method="auto")
+setwd("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data");
 unzip("C:/Users/Vanguard/Google Drive/Coursera/Assigment Getting and Cleaning Data/UCI-HAR-dataset.zip")
 
 # 1. Merges the training and the test sets to create one data set.
