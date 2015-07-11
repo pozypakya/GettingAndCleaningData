@@ -22,8 +22,9 @@ Subject_Test<-read.table("C:/Users/Vanguard/Google Drive/Coursera/Assigment Gett
 Train_Merge<-cbind(Train_X,Train_Y,Subject_Train)
 Test_Merge<-cbind(Test_X,Test_Y,Subject_Test)
 Test_Train_Merge<-rbind(Train_Merge,Test_Merge)
-
-###Wrap Test Train
-Test_Train_Wrap<-tbl_df(Test_Train_Merge)
+head(Test_Train_Merge,2)
 
 ##    QUESTION 2:  Extracts only the measurements on the mean and standard deviation for each measurement.
+All_features <- Features[grep("(mean|std)\\(", Features[,2]),]
+Mean_and_std <- Test_Train_Merge[,all_features[,1]]
+head(Mean_and_std,2)
