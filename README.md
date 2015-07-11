@@ -1,5 +1,4 @@
-# GettingAndCleaningData
-Getting and Cleaning Data Coursera Course Project
+# Getting and Cleaning Data Coursera Course Project
 
 ##    QUESTION 1:  Merges the training and the test sets to create one data set.
 ###Read Features
@@ -22,3 +21,5 @@ Test_Train_Merge<-rbind(Train_Merge,Test_Merge)
 
 ###Wrap Test Train
 Test_Train_Wrap<-tbl_df(Test_Train_Merge)
+
+##    QUESTION 2:  Extracts only the measurements on the mean and standard deviation for each measurement.
